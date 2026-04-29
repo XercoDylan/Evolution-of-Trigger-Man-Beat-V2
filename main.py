@@ -7,8 +7,7 @@ app = FastAPI()
 
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
-SOUNDS_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "Sounds")
-app.mount("/sounds", StaticFiles(directory=SOUNDS_DIR), name="sounds")
+app.mount("/sounds", StaticFiles(directory="Sounds"), name="sounds")
 
 
 
