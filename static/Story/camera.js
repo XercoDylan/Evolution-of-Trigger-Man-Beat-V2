@@ -1,4 +1,4 @@
-const MAX_ZOOM =  15
+const MAX_ZOOM =  30
 const MIN_ZOOM = 0.1
 const ZOOM_SENSITIVITIY = 0.1
 
@@ -89,6 +89,7 @@ export class Camera {
         this.canvas_element.width = window.innerWidth * devicePixelRatio
         this.canvas_element.height = window.innerHeight * devicePixelRatio
 
+        if (this.canvas.resize) this.canvas.resize()
         this.draw()
     }
 } 

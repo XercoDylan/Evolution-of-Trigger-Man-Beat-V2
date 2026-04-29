@@ -4,14 +4,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Webpage Title</title>
-    <link rel="stylesheet" href="static/Story/style.css">
-    <linkh ref="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Syne+Mono&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+    <title>Evolution of the Triggerman Beat</title>
+    <link rel="stylesheet" href="/static/Story/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Syne+Mono&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 </head>
 
 <body>
     <canvas id="canvas"></canvas>
-    <script type="module" src="static/Story/main.js"></script>
+
+    <!-- Song info popup -->
+    <div id="popup" class="hidden">
+        <button id="close-btn" aria-label="Close">×</button>
+        <div class="popup-inner">
+            <img id="popup-img" src="" alt="Album art">
+            <div class="popup-info">
+                <h2 id="popup-title"></h2>
+                <div class="popup-meta">
+                    <span id="popup-artist"></span>
+                    <span class="dot">·</span>
+                    <span id="popup-year"></span>
+                    <span class="dot">·</span>
+                    <span id="popup-city"></span>
+                </div>
+                <p id="popup-desc"></p>
+                <div class="popup-player">
+                    <button id="play-btn">▶ Play</button>
+                    <div id="progress-bar">
+                        <div id="progress-fill"></div>
+                    </div>
+                    <span id="time-display">0:00 / 0:00</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="/static/Story/main.js"></script>
 </body>
 
 </html>
