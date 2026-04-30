@@ -6,23 +6,16 @@ export const cityCoords = {
     "Houston":     [-95.3698, 29.7604],
 }
 
-// Offsets (px in world-coords) to spread nodes sharing the same city.
-// Node radius is 20 — minimum separation between any two nodes must be > 40px.
-// Node radius = 14 px.  Min safe separation between any pair = 28 px.
-// Baton Rouge sits ~30 px NW of New Orleans in projection space at scale 1500,
-// so its nodes are pushed an extra 130 px further NW to break the cluster.
 export const nodeOffsets = {
     "Drag Rap":             [   0,    0],
-    // New Orleans – cardinal cross, 65 px from city centre
-    "Back That Azz Up":     [   0,  -65],
-    "Where Dey At":         [  65,    0],
-    "Clap For Em":          [   0,   65],
+    "Back That Azz Up":     [   0,  -85],
+    "Where Dey At":         [  65,    -50],
+    "Clap For Em":          [   0,   0],
     "Explode":              [ -65,    0],
-    // Baton Rouge – pushed far NW so it clears the NOLA cross
-    "Wipe Me Down":         [-130,  -70],
+    "Wipe Me Down":         [-130,  -90],
     "Whatchu Kno 'Bout Me": [-130,    0],
     "Gangsta Walk":         [   0,    0],
-    "Break My Soul":        [   0,    0],
+    "Break My Soul":        [   -20,    0],
 }
 
 export const data = {

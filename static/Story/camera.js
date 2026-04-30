@@ -1,19 +1,23 @@
 const MAX_ZOOM =  30
 const MIN_ZOOM = 0.1
 const ZOOM_SENSITIVITIY = 0.1
+const NODE_ZOOM_AMOUNT = 3
+const NODE_ZOOM_SPEED = 0.09
 
 
 export class Camera {
-    constructor(canvas_element, context, canvas) {
+    constructor(canvas_element, context, main) {
 
         this.canvas_element = canvas_element
-        this.canvas = canvas
+
+        this.main = main
         this.context = context
 
         this.zoom = 1
         this.cameraX = 0
         this.cameraY = 0
         this.dragging = false
+        this.zoomTarget = null
 
         this.resize()
 
@@ -41,8 +45,20 @@ export class Camera {
             this.resize()
         })
 
-        
+        this.animate_node_zoom()
         this.draw()
+
+    }
+
+    zoomToNode(name, zoomLevel = NODE_ZOOM_AMOUNT) {
+        const node = this.main.canvas.nodes[name];
+        if (!node) return;
+
+        this.zoomTarget = {
+            zoom: zoomLevel,
+            cx: window.innerWidth  / 2 - node.x * zoomLevel,
+            cy: window.innerHeight / 2 - node.y * zoomLevel,
+        }
 
     }
 
@@ -78,7 +94,7 @@ export class Camera {
         this.context.scale(this.zoom, this.zoom)
         this.context.translate(this.cameraX/this.zoom, this.cameraY/this.zoom)
 
-        this.canvas.draw()
+        this.main.canvas.draw()
         
     }
 
@@ -89,7 +105,28 @@ export class Camera {
         this.canvas_element.width = window.innerWidth * devicePixelRatio
         this.canvas_element.height = window.innerHeight * devicePixelRatio
 
-        if (this.canvas.resize) this.canvas.resize()
+        if (this.main.canvas.resize) this.main.canvas.resize()
         this.draw()
+    }
+
+    animate_node_zoom() {
+        if (this.zoomTarget) {
+            this.zoom   += (this.zoomTarget.zoom - this.zoom)   * NODE_ZOOM_SPEED
+            this.cameraX += (this.zoomTarget.cx   - this.cameraX) * NODE_ZOOM_SPEED
+            this.cameraY += (this.zoomTarget.cy   - this.cameraY) * NODE_ZOOM_SPEED
+
+            if (
+                Math.abs(this.zoom   - this.zoomTarget.zoom) < 0.005 &&
+                Math.abs(this.cameraX - this.zoomTarget.cx)  < 0.5   &&
+                Math.abs(this.cameraY - this.zoomTarget.cy)  < 0.5
+            ) {
+                this.zoom    = this.zoomTarget.zoom
+                this.cameraX = this.zoomTarget.cx
+                this.cameraY = this.zoomTarget.cy
+                this.zoomTarget = null
+            }
+        }
+        this.draw()
+        requestAnimationFrame(() => this.animate_node_zoom())
     }
 } 

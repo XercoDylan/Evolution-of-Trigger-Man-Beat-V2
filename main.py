@@ -6,15 +6,12 @@ from fastapi.staticfiles import StaticFiles
 app = FastAPI()
 
 app.mount("/static", StaticFiles(directory="static"), name="static")
-
 app.mount("/sounds", StaticFiles(directory="Sounds"), name="sounds")
-
 
 
 @app.get("/")
 async def home():
     return FileResponse("static/Home/home.html")
-
 
 @app.get("/story")
 async def story():
